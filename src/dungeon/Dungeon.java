@@ -43,4 +43,8 @@ public class Dungeon {
     public Iterator<Room> iterator() {
         return new RoomIterator(rooms);
     }
+
+    public int getRoomCount() {
+        return rooms.size();
+    }
 }

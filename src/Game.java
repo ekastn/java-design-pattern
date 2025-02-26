@@ -1,4 +1,6 @@
+import builder.HeroBuilder;
 import character.*;
+import strategy.*;
 import dungeon.Dungeon;
 import dungeon.Potion;
 import dungeon.Room;
@@ -18,8 +20,8 @@ public class Game {
 
     public void start() {
         clearConsole();
-        System.out.println("Selamat datang di Petualangan Dungeon!");
-        System.out.println("Tujuanmu adalah menjelajahi dungeon dan bertahan hidup.");
+        System.out.println("Selamat datang di The Dungeon Adventure!");
+        System.out.println("Tujuanmu hanya satu, bertahan hidup!");
 
         chooseCharacter();
         createDungeon(5);
@@ -46,28 +48,56 @@ public class Game {
         System.out.print("Masukkan nama karakter: ");
         String name = scanner.nextLine();
 
-        player = switch (choice) {
-            case 1 -> new Warrior(name);
-            case 2 -> new Mage(name);
-            case 3 -> new Assassin(name);
-            case 4 -> new Tank(name);
+        HeroBuilder heroBuilder = new HeroBuilder().setName(name);
+
+        switch (choice) {
+            case 1 -> heroBuilder
+                    .setHealth(120)
+                    .setAttack(25)
+                    .setDefense(20)
+                    .setAttackStrategy(new MeleeAttack());
+            case 2 -> heroBuilder
+                    .setHealth(80)
+                    .setAttack(30)
+                    .setDefense(10)
+                    .setAttackStrategy(new MagicAttack());
+            case 3 -> heroBuilder
+                    .setHealth(90)
+                    .setAttack(35)
+                    .setDefense(15)
+                    .setAttackStrategy(new StealthAttack());
+            case 4 -> heroBuilder
+                    .setHealth(150)
+                    .setAttack(15)
+                    .setDefense(30)
+                    .setAttackStrategy(new MeleeAttack());
             default -> {
                 System.out.println("Pilihan tidak valid. Memilih Warrior secara default.");
-                yield new Warrior(name);
+                heroBuilder
+                    .setHealth(120)
+                    .setAttack(25)
+                    .setDefense(20)
+                    .setAttackStrategy(new MeleeAttack());
             }
-        };
+        }
+
+        player = heroBuilder.build();
     }
 
     private void createDungeon(int roomCount) {
         dungeon = new Dungeon(roomCount);
     }
 
-    private void exploreDungeon()  {
+    private void exploreDungeon() {
         Iterator<Room> iterator = dungeon.iterator();
         while (iterator.hasNext()) {
             clearConsole();
             Room room = iterator.next();
-            System.out.println(room.getDescription());
+            System.out.print("========= ");
+            System.out.print(room.getDescription());
+            System.out.print(" dari ");
+            System.out.print(dungeon.getRoomCount());
+            System.out.print(" =========");
             System.out.println();
 
             for (Object obj : room.getObjects()) {
