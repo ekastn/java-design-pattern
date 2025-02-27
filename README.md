@@ -1,6 +1,10 @@
 # Laporan Design Pattern
 
-## Strategy Pattern
+## Muhamad Saladin Eka Septian
+
+--- 
+
+## **Strategy Pattern**
 
 Strategy Pattern adalah sebuah pola yang digunakan untuk mendefinisikan sebuah keluarga algoritma, mengenkapsulasi masing-masing algoritma, dan membuatnya dapat dipertukarkan. Pola ini memungkinkan algoritma untuk bervariasi secara independen dari klien yang menggunakannya.
 
@@ -25,7 +29,7 @@ classDiagram
     Strategy <|.. ConcreteStrategyB
 ```
 
-### Struktur Kelas Strategy Pattern
+### **Struktur Kelas Strategy Pattern**
 
 Strategy Pattern digunakan untuk menentukan strategi serangan yang bisa diganti-ganti pada runtime. Dengan pola ini, karakter dalam game dapat memiliki berbagai gaya bertarung yang dapat diubah tanpa perlu mengubah struktur utama dari objek karakter itu sendiri.
 
@@ -57,9 +61,11 @@ direction TB
 ```
 
 Dengan struktur ini, strategi serangan dapat diubah tanpa perlu memodifikasi kelas `Hero`, cukup dengan mengganti objek
-`IAttackStrategy` yang digunakan.
+`AttackStrategy` yang digunakan.
 
-## Builder Pattern
+---
+
+## **Builder Pattern**
 
 Builder Pattern adalah salah satu creational design pattern yang memisahkan proses konstruksi suatu objek kompleks dari representasinya, sehingga proses konstruksi yang sama dapat menghasilkan berbagai representasi yang berbeda.
 
@@ -84,7 +90,7 @@ classDiagram
     Builder <|.. ConcreteBuilder
 ```
 
-### Struktur Kelas Builder Pattern
+### **Struktur Kelas Builder Pattern**
 
 Builder Pattern digunakan untuk membuat karakter dalam game dengan konfigurasi yang fleksibel. Alih-alih menggunakan
 konstruktor dengan banyak parameter, pola ini memungkinkan pembuatan objek secara bertahap dengan hanya menyertakan
@@ -122,7 +128,9 @@ direction TB
 Dengan menggunakan `HeroBuilder`, objek `Hero` dapat dibuat secara bertahap tanpa harus menggunakan konstruktor dengan
 parameter panjang.
 
-## Iterator Pattern
+---
+
+## **Iterator Pattern**
 
 Iterator Pattern adalah salah satu behavioral design pattern yang menyediakan cara untuk mengakses elemen dari suatu objek agregat secara berurutan tanpa mengekspos representasi dasarnya.
 
@@ -154,7 +162,7 @@ classDiagram
     Iterator <|-- ConcreteIterator
 ```
 
-### Struktur Kelas Iterator Pattern
+### **Struktur Kelas Iterator Pattern**
 
 Iterator Pattern digunakan untuk mengiterasi ruangan dalam dungeon tanpa mengekspos implementasi koleksi secara
 langsung. Dengan menggunakan iterator, pemain dapat menjelajahi setiap ruangan dalam dungeon satu per satu tanpa perlu
@@ -181,9 +189,9 @@ direction TB
 Dengan pola ini, eksplorasi dungeon menjadi lebih terstruktur karena `RoomIterator` bertanggung jawab atas iterasi
 ruangan, sementara `Dungeon` hanya menyediakan akses ke iterator tanpa mengekspos struktur data internalnya.
 
-## Implementasi
+---
 
-### Overview Program
+## **CLI App**
 
 Program ini merupakan game RPG Dungeon Crawler di mana pemain dapat memilih tipe karakter, menjelajahi dungeon yang
 dibuat secara prosedural,
@@ -207,8 +215,6 @@ tergantung pada tipe karakter.
 4. **Use-Case yang Memperluas Battle Enemy**:
     - **Use Potion**: Pemain menggunakan potion selama pertarungan.
     - **Attack Enemy**: Pemain menyerang musuh selama pertarungan.
-
----
 
 ### **Class Diagram**
 
@@ -586,3 +592,9 @@ sequenceDiagram
     - Jika bukan, pemain melanjutkan ke ruangan berikutnya.
 7. **Eksplorasi Selesai**:
     - Setelah semua ruangan selesai dijelajahi,`Game`mengembalikan pesan bahwa eksplorasi dungeon selesai.
+
+--- 
+
+## **Output Program**
+
+![Output Program](./docs/output.gif)
