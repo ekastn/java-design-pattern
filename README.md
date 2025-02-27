@@ -1,6 +1,5 @@
 # Laporan Design Pattern
-
-## Muhamad Saladin Eka Septian
+### Muhamad Saladin Eka Septian
 
 --- 
 
@@ -205,7 +204,7 @@ tergantung pada tipe karakter.
 1. **Aktor**:
     - **Player**: Pemain yang mengontrol karakter dalam game.
 2. **Use-Case Utama**:
-    - **Create Character**: Pemain membuat karakter.
+    - **Choose Character**: Pemain memilih tipe karakter.
     - **Explore Dungeon**: Pemain menjelajahi dungeon.
 3. **Use-Case yang Termasuk dalam Explore Dungeon**:
     - **Battle Enemy**: Pemain bertarung dengan musuh.
