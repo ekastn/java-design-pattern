@@ -2,22 +2,40 @@
 
 ## Strategy Pattern
 
-Strategy Pattern digunakan untuk menentukan strategi serangan yang bisa diganti-ganti pada runtime. Dengan pola ini,
-karakter dalam game dapat memiliki berbagai gaya bertarung yang dapat diubah tanpa perlu mengubah struktur utama dari
-objek karakter itu sendiri. Hal ini meningkatkan fleksibilitas dan mempermudah pengembangan fitur baru.
+Strategy Pattern adalah sebuah pola yang digunakan untuk mendefinisikan sebuah keluarga algoritma, mengenkapsulasi masing-masing algoritma, dan membuatnya dapat dipertukarkan. Pola ini memungkinkan algoritma untuk bervariasi secara independen dari klien yang menggunakannya.
 
-![strategy_diagram](https://github.com/user-attachments/assets/strategy-pattern-diagram.png)
+```mermaid
+classDiagram
+    class Strategy {
+    +execute()
+    }
+
+    class ConcreteStrategyA {
+    +execute()
+    }
+
+    class ConcreteStrategyB {
+    +execute()
+    }
+
+    <<interface>> Strategy
+
+    Context *-- Strategy
+    Strategy <|.. ConcreteStrategyA
+    Strategy <|.. ConcreteStrategyB
+```
 
 ### Struktur Kelas Strategy Pattern
 
+Strategy Pattern digunakan untuk menentukan strategi serangan yang bisa diganti-ganti pada runtime. Dengan pola ini, karakter dalam game dapat memiliki berbagai gaya bertarung yang dapat diubah tanpa perlu mengubah struktur utama dari objek karakter itu sendiri.
+
 ```mermaid
-title Strategy Pattern
 classDiagram
 direction TB
     class Hero {
         +setAttackStrategy(IAttackStrategy strategy) void
     }
-    class IAttackStrategy {
+    class AttackStrategy {
         +attack(Character target) void
     }
     class MeleeAttack {
@@ -29,10 +47,13 @@ direction TB
     class StealthAttack {
         +attack(Character target) void
     }
-    Hero --> IAttackStrategy : uses
-    IAttackStrategy <|.. MeleeAttack
-    IAttackStrategy <|.. MagicAttack
-    IAttackStrategy <|.. StealthAttack
+
+    <<interface>> AttackStrategy
+
+    Hero --> AttackStrategy : uses
+    AttackStrategy <|.. MeleeAttack
+    AttackStrategy <|.. MagicAttack
+    AttackStrategy <|.. StealthAttack
 ```
 
 Dengan struktur ini, strategi serangan dapat diubah tanpa perlu memodifikasi kelas `Hero`, cukup dengan mengganti objek
@@ -40,16 +61,36 @@ Dengan struktur ini, strategi serangan dapat diubah tanpa perlu memodifikasi kel
 
 ## Builder Pattern
 
+Builder Pattern adalah salah satu creational design pattern yang memisahkan proses konstruksi suatu objek kompleks dari representasinya, sehingga proses konstruksi yang sama dapat menghasilkan berbagai representasi yang berbeda.
+
+```mermaid
+classDiagram
+    class Director {
+    +execute()
+    }
+
+    class Builder {
+    +buildPart()
+    }
+
+    class ConcreteBuilder {
+    +buildPart()
+    +getResult()
+    }
+
+    <<interface>> Builder
+
+    Director *-- Builder
+    Builder <|.. ConcreteBuilder
+```
+
+### Struktur Kelas Builder Pattern
+
 Builder Pattern digunakan untuk membuat karakter dalam game dengan konfigurasi yang fleksibel. Alih-alih menggunakan
 konstruktor dengan banyak parameter, pola ini memungkinkan pembuatan objek secara bertahap dengan hanya menyertakan
 atribut yang dibutuhkan. Dengan demikian, proses inisialisasi karakter menjadi lebih terstruktur dan mudah dibaca.
 
-![builder_diagram](https://github.com/user-attachments/assets/builder-pattern-diagram.png)
-
-### Struktur Kelas Builder Pattern
-
 ```mermaid
-title Builder Pattern
 classDiagram
 direction TB
     class HeroBuilder {
@@ -57,7 +98,7 @@ direction TB
         +setHealth(int health) HeroBuilder
         +setAttack(int attack) HeroBuilder
         +setDefense(int defense) HeroBuilder
-        +setAttackStrategy(IAttackStrategy strategy) HeroBuilder
+        +setAttackStrategy(AttackStrategy strategy) HeroBuilder
         +build() Hero
     }
     class Hero {
@@ -65,14 +106,17 @@ direction TB
         -int health
         -int attackPower
         -int defense
-        -IAttackStrategy attackStrategy
+        -AttackStrategy attackStrategy
         +setAttackStrategy(IAttackStrategy strategy) void
     }
-    class IAttackStrategy {
+    class AttackStrategy {
         +attack(Character target) void
     }
+
+    <<interface>> AttackStrategy
+
     HeroBuilder --> Hero : builds
-    Hero --> IAttackStrategy : uses
+    Hero --> AttackStrategy : uses
 ```
 
 Dengan menggunakan `HeroBuilder`, objek `Hero` dapat dibuat secara bertahap tanpa harus menggunakan konstruktor dengan
@@ -80,17 +124,44 @@ parameter panjang.
 
 ## Iterator Pattern
 
+Iterator Pattern adalah salah satu behavioral design pattern yang menyediakan cara untuk mengakses elemen dari suatu objek agregat secara berurutan tanpa mengekspos representasi dasarnya.
+
+```mermaid
+classDiagram
+    class Client
+
+    class Aggregate {
+        +createIterator()
+    }
+    class ConcreteAggregate {
+        +createIterator() Context
+    }
+
+    class Iterator {
+        +next()
+    }
+    class ConcreteIterator {
+        +next() Context
+    }
+
+    <<interface>> Aggregate
+    <<interface>> Iterator
+
+    Client --> Aggregate
+    Client --> Iterator
+
+    Aggregate <|-- ConcreteAggregate
+    Iterator <|-- ConcreteIterator
+```
+
+### Struktur Kelas Iterator Pattern
+
 Iterator Pattern digunakan untuk mengiterasi ruangan dalam dungeon tanpa mengekspos implementasi koleksi secara
 langsung. Dengan menggunakan iterator, pemain dapat menjelajahi setiap ruangan dalam dungeon satu per satu tanpa perlu
 mengetahui bagaimana ruangan disimpan di dalam game. Pola ini membuat eksplorasi lebih modular dan meningkatkan
 enkapsulasi dalam sistem.
 
-![iterator_diagram](https://github.com/user-attachments/assets/iterator-pattern-diagram.png)
-
-### Struktur Kelas Iterator Pattern
-
 ```mermaid
-title Iterator Pattern
 classDiagram
 direction TB
     class Dungeon {
