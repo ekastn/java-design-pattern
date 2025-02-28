@@ -111,8 +111,7 @@ public class Game {
 
             for (RoomObject obj : room.getObjects()) {
                 if (obj instanceof Enemy enemy) {
-                    System.out.println("You encountered an enemy: " + enemy.getName() + "!");
-                    System.out.println("Ready to batte!");
+                    enemy.interact(player);
 
                     try {
                         Thread.sleep(1000);
@@ -172,10 +171,15 @@ public class Game {
             Thread.sleep(500);
 
             if (enemy.isAlive()) {
+                enemy.checkState();  // Changes state dynamically
                 enemy.performAttack(player);
             }
 
             Thread.sleep(1000);
+        }
+
+        if (enemy.hasEscaped()) {
+            System.out.println(enemy.getName() + " has escaped!");
         }
     }
 

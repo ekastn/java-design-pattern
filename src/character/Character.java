@@ -36,6 +36,10 @@ public abstract class Character implements Cloneable {
         return name;
     }
 
+    public int getAttackPower() {
+        return attackPower;
+    }
+
     @Override
     public Character clone() {
         try {
