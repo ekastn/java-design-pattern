@@ -1,6 +1,6 @@
 package character;
 
-public abstract class Character {
+public abstract class Character implements Cloneable {
     protected String name;
     protected int health;
     protected int attackPower;
@@ -36,31 +36,12 @@ public abstract class Character {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public int getAttackPower() {
-        return attackPower;
-    }
-
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
-    }
-
-    public int getDefense() {
-        return defense;
-    }
-
-    public void setDefense(int defense) {
-        this.defense = defense;
+    @Override
+    public Character clone() {
+        try {
+            return (Character) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
