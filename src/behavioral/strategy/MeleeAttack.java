@@ -1,4 +1,4 @@
-package strategy;
+package behavioral.strategy;
 
 import character.Character;
 

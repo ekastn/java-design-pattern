@@ -1,6 +1,6 @@
-import builder.HeroBuilder;
+import creational.builder.HeroBuilder;
 import character.*;
-import strategy.*;
+import behavioral.strategy.*;
 import dungeon.Dungeon;
 import dungeon.Potion;
 import dungeon.Room;
@@ -35,7 +35,7 @@ public class Game {
     }
 
     private void chooseCharacter() {
-        System.out.println("\nPilih karakter Anda:");
+        System.out.println("\nPilih karakter Kamu:");
         System.out.println("1. Warrior");
         System.out.println("2. Mage");
         System.out.println("3. Assassin");
@@ -117,18 +117,18 @@ public class Game {
                         System.out.println("Game over!");
                         return;
                     } else {
-                        System.out.println("Anda mengalahkan " + enemy.getName() + "!");
+                        System.out.println("Kamu mengalahkan " + enemy.getName() + "!");
                     }
                 } else if (obj instanceof Potion potion) {
                     player.addPotion(potion);
-                    System.out.println("Anda menemukan potion!");
+                    System.out.println("Kamu menemukan potion!");
                 } else if (obj instanceof Trap trap) {
                     trap.trigger(player);
                 }
             }
 
             if (room.getDescription().contains("Jalan keluar")) {
-                System.out.println("Selamat! Anda menemukan jalan keluar!");
+                System.out.println("Selamat! Kamu menemukan jalan keluar!");
                 return;
             }
 

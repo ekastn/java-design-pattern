@@ -1,7 +1,7 @@
 package dungeon;
 
 import character.Enemy;
-import iterator.RoomIterator;
+import behavioral.iterator.RoomIterator;
 
 import java.util.ArrayList;
 import java.util.Iterator;

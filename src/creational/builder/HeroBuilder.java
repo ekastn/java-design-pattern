@@ -1,6 +1,6 @@
-package builder;
+package creational.builder;
 
-import strategy.IAttackStrategy;
+import behavioral.strategy.IAttackStrategy;
 import character.Hero;
 
 public class HeroBuilder {
