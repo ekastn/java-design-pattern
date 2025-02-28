@@ -3,10 +3,7 @@ package creational.singleton;
 import creational.builder.HeroBuilder;
 import character.*;
 import behavioral.strategy.*;
-import dungeon.Dungeon;
-import dungeon.Potion;
-import dungeon.Room;
-import dungeon.Trap;
+import dungeon.*;
 
 import java.util.Iterator;
 import java.util.Scanner;
@@ -108,7 +105,7 @@ public class Game {
             System.out.print(" =========");
             System.out.println();
 
-            for (Object obj : room.getObjects()) {
+            for (RoomObject obj : room.getObjects()) {
                 if (obj instanceof Enemy enemy) {
                     System.out.println("Kamu bertemu dengan " + enemy.getName() + "!");
                     System.out.println("Mulai bertarung!");
@@ -127,11 +124,8 @@ public class Game {
                     } else {
                         System.out.println("Kamu mengalahkan " + enemy.getName() + "!");
                     }
-                } else if (obj instanceof Potion potion) {
-                    player.addPotion(potion);
-                    System.out.println("Kamu menemukan potion!");
-                } else if (obj instanceof Trap trap) {
-                    trap.trigger(player);
+                } else {
+                    obj.interact(player);
                 }
             }
 

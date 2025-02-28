@@ -2,6 +2,7 @@ package dungeon;
 
 import character.Enemy;
 import behavioral.iterator.RoomIterator;
+import creational.factorymethod.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,28 +12,24 @@ import java.util.Random;
 public class Dungeon {
     final private List<Room> rooms;
     final private Random random;
+    final private RoomObjectFactory[] objectFactories;
 
     public Dungeon(int roomCount) {
         this.rooms = new ArrayList<>();
         this.random = new Random();
+        this.objectFactories = new RoomObjectFactory[]{
+                new EnemyFactory(),
+                new PotionFactory(),
+                new TrapFactory()
+        };
         generateRooms(roomCount);
     }
 
     private void generateRooms(int roomCount) {
         for (int i = 0; i < roomCount; i++) {
             Room room = new Room("Ruangan " + (i + 1));
-            int objectType = random.nextInt(3);
-            switch (objectType) {
-                case 0:
-                    room.addObject(new Enemy("Goblin", 50, 10, 5));
-                    break;
-                case 1:
-                    room.addObject(new Potion(20));
-                    break;
-                case 2:
-                    room.addObject(new Trap(10));
-                    break;
-            }
+            int objectType = random.nextInt(objectFactories.length);
+            room.addObject(objectFactories[objectType].createObject());
             rooms.add(room);
         }
 

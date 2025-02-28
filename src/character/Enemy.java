@@ -1,6 +1,8 @@
 package character;
 
-public class Enemy extends Character {
+import dungeon.RoomObject;
+
+public class Enemy extends Character implements RoomObject {
     public Enemy(String name, int health, int attack, int defense) {
         super(name, health, attack, defense);
     }
@@ -10,4 +12,7 @@ public class Enemy extends Character {
         System.out.println(name + " menyerang " + target.getName());
         target.takeDamage(attackPower);
     }
+
+    @Override
+    public void interact(Hero hero) {}
 }

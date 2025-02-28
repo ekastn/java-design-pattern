@@ -1,8 +1,9 @@
 package dungeon;
 
 import character.Character;
+import character.Hero;
 
-public class Trap {
+public class Trap implements RoomObject {
     final private int damage;
 
     public Trap(int damage) {
@@ -12,5 +13,10 @@ public class Trap {
     public void trigger(Character character) {
         System.out.println("Perangkap terpicu!");
         character.takeDamage(damage);
+    }
+
+    @Override
+    public void interact(Hero hero) {
+        trigger(hero);
     }
 }

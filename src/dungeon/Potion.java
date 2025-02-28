@@ -1,6 +1,8 @@
 package dungeon;
 
-public class Potion {
+import character.Hero;
+
+public class Potion implements RoomObject {
     private int healingPower;
 
     public Potion(int healingPower) {
@@ -9,5 +11,11 @@ public class Potion {
 
     public int getHealingPower() {
         return healingPower;
+    }
+
+    @Override
+    public void interact(Hero hero) {
+        System.out.println("Kamu menemukan potion!");
+        hero.addPotion(this);
     }
 }

@@ -5,18 +5,18 @@ import java.util.List;
 
 public class Room {
     private String description;
-    private List<Object> objects;
+    private List<RoomObject> objects;
 
     public Room(String description) {
         this.description = description;
         this.objects = new ArrayList<>();
     }
 
-    public void addObject(Object object) {
+    public void addObject(RoomObject object) {
         objects.add(object);
     }
 
-    public List<Object> getObjects() {
+    public List<RoomObject> getObjects() {
         return objects;
     }
 
