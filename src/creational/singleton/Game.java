@@ -1,3 +1,5 @@
+package creational.singleton;
+
 import creational.builder.HeroBuilder;
 import character.*;
 import behavioral.strategy.*;
@@ -13,9 +15,15 @@ public class Game {
     private final Scanner scanner;
     private Hero player;
     private Dungeon dungeon;
+    private static Game instance;
 
-    public Game() {
+    private Game() {
         this.scanner = new Scanner(System.in);
+    }
+
+    public static Game getInstance() {
+        if (instance == null) instance = new Game();
+        return instance;
     }
 
     public void start() {
@@ -114,7 +122,7 @@ public class Game {
                     }
 
                     if (!player.isAlive()) {
-                        System.out.println("Game over!");
+                        System.out.println("creational.singleton.Game over!");
                         return;
                     } else {
                         System.out.println("Kamu mengalahkan " + enemy.getName() + "!");
