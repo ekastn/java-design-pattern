@@ -1,6 +1,6 @@
 package creational.factorymethod;
 
-import dungeon.RoomObject;
+import structural.composite.RoomObject;
 
 public abstract class RoomObjectFactory {
     public abstract RoomObject createObject();

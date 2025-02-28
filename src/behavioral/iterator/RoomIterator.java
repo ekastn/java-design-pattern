@@ -1,6 +1,6 @@
 package behavioral.iterator;
 
-import dungeon.Room;
+import structural.composite.Room;
 
 import java.util.Iterator;
 import java.util.List;

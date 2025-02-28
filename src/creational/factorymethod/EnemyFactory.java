@@ -1,7 +1,7 @@
 package creational.factorymethod;
 
 import creational.prototype.EnemyPrototype;
-import dungeon.RoomObject;
+import structural.composite.RoomObject;
 
 import java.util.Random;
 

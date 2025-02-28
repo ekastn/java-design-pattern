@@ -1,6 +1,6 @@
 package character;
 
-import dungeon.Potion;
+import structural.composite.Potion;
 import behavioral.strategy.IAttackStrategy;
 
 import java.util.ArrayList;

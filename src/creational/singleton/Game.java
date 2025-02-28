@@ -4,6 +4,8 @@ import creational.builder.HeroBuilder;
 import character.*;
 import behavioral.strategy.*;
 import dungeon.*;
+import structural.composite.Room;
+import structural.composite.RoomObject;
 
 import java.util.Iterator;
 import java.util.Scanner;

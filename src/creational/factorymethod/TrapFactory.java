@@ -1,7 +1,7 @@
 package creational.factorymethod;
 
-import dungeon.RoomObject;
-import dungeon.Trap;
+import structural.composite.RoomObject;
+import structural.composite.Trap;
 
 // src/dungeon/TrapFactory.java
 public class TrapFactory extends RoomObjectFactory {

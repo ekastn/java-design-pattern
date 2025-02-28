@@ -1,7 +1,7 @@
 package creational.factorymethod;
 
-import dungeon.Potion;
-import dungeon.RoomObject;
+import structural.composite.Potion;
+import structural.composite.RoomObject;
 
 public class PotionFactory extends RoomObjectFactory {
     @Override

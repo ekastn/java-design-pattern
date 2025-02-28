@@ -1,8 +1,8 @@
 package dungeon;
 
-import character.Enemy;
 import behavioral.iterator.RoomIterator;
 import creational.factorymethod.*;
+import structural.composite.Room;
 
 import java.util.ArrayList;
 import java.util.Iterator;

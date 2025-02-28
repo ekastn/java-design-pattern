@@ -1,4 +1,4 @@
-package dungeon;
+package structural.composite;
 
 import character.Hero;
 

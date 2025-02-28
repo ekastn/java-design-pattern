@@ -1,6 +1,6 @@
 package character;
 
-import dungeon.RoomObject;
+import structural.composite.RoomObject;
 
 public class Enemy extends Character implements RoomObject {
     public Enemy(String name, int health, int attack, int defense) {
