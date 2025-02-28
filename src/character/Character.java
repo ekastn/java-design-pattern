@@ -13,7 +13,7 @@ public abstract class Character implements Cloneable {
         this.defense = defense;
     }
 
-    public abstract void performAttack(Character target) throws InterruptedException;
+    public abstract void performAttack(Character target);
 
     public void takeDamage(int damage) {
         int damageTaken = damage - defense / 4;

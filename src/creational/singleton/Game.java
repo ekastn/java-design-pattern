@@ -4,8 +4,10 @@ import creational.builder.HeroBuilder;
 import character.*;
 import behavioral.strategy.*;
 import dungeon.*;
+import manager.CombatManager;
 import structural.composite.Room;
 import structural.composite.RoomObject;
+import utils.ConsoleUtils;
 
 import java.util.Iterator;
 import java.util.Scanner;
@@ -14,10 +16,12 @@ public class Game {
     private final Scanner scanner;
     private Hero player;
     private Dungeon dungeon;
+    private CombatManager combatManager;
     private static Game instance;
 
     private Game() {
         this.scanner = new Scanner(System.in);
+        this.combatManager = new CombatManager();
     }
 
     public static Game getInstance() {
@@ -26,7 +30,7 @@ public class Game {
     }
 
     public void start() {
-        clearConsole();
+        ConsoleUtils.clearConsole();
         System.out.println("Welcome to The Dungeon Adventure!");
         System.out.println("Your only goal is to survive!");
 
@@ -40,7 +44,7 @@ public class Game {
             Thread.currentThread().interrupt();
         }
 
-        clearConsole();
+        ConsoleUtils.clearConsole();
     }
 
     private void chooseCharacter() {
@@ -100,7 +104,7 @@ public class Game {
     private void exploreDungeon() {
         Iterator<Room> iterator = dungeon.iterator();
         while (iterator.hasNext()) {
-            clearConsole();
+            ConsoleUtils.clearConsole();
             Room room = iterator.next();
             System.out.print("========= ");
             System.out.print(room.getDescription());
@@ -115,7 +119,7 @@ public class Game {
 
                     try {
                         Thread.sleep(1000);
-                        handleCombat(enemy);
+                        combatManager.startCombat(player, enemy);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                     }
@@ -123,8 +127,6 @@ public class Game {
                     if (!player.isAlive()) {
                         System.out.println("Game over!");
                         return;
-                    } else {
-                        System.out.println("You defeated " + enemy.getName() + "!");
                     }
                 } else {
                     obj.interact(player);
@@ -143,57 +145,5 @@ public class Game {
         }
 
         System.out.println("You have explored the entire dungeon!");
-    }
-
-    private void handleCombat(Enemy enemy) throws InterruptedException {
-        while (enemy.isAlive() && player.isAlive()) {
-            clearConsole();
-            player.info();
-
-            System.out.println("\nChoose an action:");
-            System.out.println("1. Attack");
-            System.out.println("2. Use Potion");
-            System.out.print("Enter your choice (1-2): ");
-            int action = scanner.nextInt();
-
-            System.out.println();
-            Thread.sleep(500);
-
-            switch (action) {
-                case 1 -> player.performAttack(enemy);
-                case 2 -> player.usePotion();
-                default -> {
-                    System.out.println("Invalid choice. Attacking by default.");
-                    player.performAttack(enemy);
-                }
-            }
-
-            Thread.sleep(500);
-
-            if (enemy.isAlive()) {
-                enemy.checkState();  // Changes state dynamically
-                enemy.performAttack(player);
-            }
-
-            Thread.sleep(1000);
-        }
-
-        if (enemy.hasEscaped()) {
-            System.out.println(enemy.getName() + " has escaped!");
-        }
-    }
-
-    private void clearConsole() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-            }
-        } catch (Exception e) {
-            System.out.println("Failed to clear the console.");
-            e.printStackTrace();
-        }
     }
 }
