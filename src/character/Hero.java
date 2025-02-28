@@ -30,9 +30,9 @@ public class Hero extends Character {
         if (!inventory.isEmpty()) {
             Potion potion = inventory.removeFirst();
             health += potion.getHealingPower();
-            System.out.println(name + " menggunakan potion. health bertambah: " + health);
+            System.out.println(name + " uses a potion. Health increased: " + health);
         } else {
-            System.out.println("Tidak ada potion di inventory.");
+            System.out.println("You don't have any potion.");
         }
     }
 
@@ -45,7 +45,7 @@ public class Hero extends Character {
         System.out.println("Health: " + health);
         System.out.println("Attack: " + attackPower);
         System.out.println("Defense: " + defense);
-        System.out.println("Potion: " + getPotionCount());
+        System.out.println("Potions: " + getPotionCount());
     }
 
     public int getPotionCount() {

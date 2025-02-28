@@ -25,32 +25,34 @@ public class Game {
 
     public void start() {
         clearConsole();
-        System.out.println("Selamat datang di The Dungeon Adventure!");
-        System.out.println("Tujuanmu hanya satu, bertahan hidup!");
+        System.out.println("Welcome to The Dungeon Adventure!");
+        System.out.println("Your only goal is to survive!");
 
         chooseCharacter();
         createDungeon(5);
         exploreDungeon();
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+
+        clearConsole();
     }
 
     private void chooseCharacter() {
-        System.out.println("\nPilih karakter Kamu:");
+        System.out.println("\nChoose your character:");
         System.out.println("1. Warrior");
         System.out.println("2. Mage");
         System.out.println("3. Assassin");
         System.out.println("4. Tank");
-        System.out.print("\nMasukkan pilihan (1-4): ");
+        System.out.print("\nEnter your choice (1-4): ");
 
         int choice = scanner.nextInt();
-        scanner.nextLine(); // Membersihkan newline
+        scanner.nextLine(); // clear newline
 
-        System.out.print("Masukkan nama karakter: ");
+        System.out.print("Enter character name: ");
         String name = scanner.nextLine();
 
         HeroBuilder heroBuilder = new HeroBuilder().setName(name);
@@ -77,7 +79,7 @@ public class Game {
                     .setDefense(30)
                     .setAttackStrategy(new MeleeAttack());
             default -> {
-                System.out.println("Pilihan tidak valid. Memilih Warrior secara default.");
+                System.out.println("Invalid choice. Defaulting to Warrior.");
                 heroBuilder
                     .setHealth(120)
                     .setAttack(25)
@@ -100,29 +102,28 @@ public class Game {
             Room room = iterator.next();
             System.out.print("========= ");
             System.out.print(room.getDescription());
-            System.out.print(" dari ");
+            System.out.print(" of ");
             System.out.print(dungeon.getRoomCount());
             System.out.print(" =========");
             System.out.println();
 
             for (RoomObject obj : room.getObjects()) {
                 if (obj instanceof Enemy enemy) {
-                    System.out.println("Kamu bertemu dengan " + enemy.getName() + "!");
-                    System.out.println("Mulai bertarung!");
-
+                    System.out.println("You encountered an enemy: " + enemy.getName() + "!");
+                    System.out.println("Ready to batte!");
 
                     try {
-                        Thread.sleep(2000);
+                        Thread.sleep(1000);
                         handleCombat(enemy);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                     }
 
                     if (!player.isAlive()) {
-                        System.out.println("creational.singleton.Game over!");
+                        System.out.println("Game over!");
                         return;
                     } else {
-                        System.out.println("Kamu mengalahkan " + enemy.getName() + "!");
+                        System.out.println("You defeated " + enemy.getName() + "!");
                     }
                 } else {
                     obj.interact(player);
@@ -130,15 +131,17 @@ public class Game {
             }
 
             if (room.getDescription().contains("Jalan keluar")) {
-                System.out.println("Selamat! Kamu menemukan jalan keluar!");
+                System.out.println("\n\n");
+                System.out.println("🎉 Congratulations! You escaped the dungeon!");
+                System.out.println("\n\n");
                 return;
             }
 
-            System.out.println("\nTekan Enter untuk melanjutkan...");
+            System.out.println("\nPress Enter to continue...");
             scanner.nextLine();
         }
 
-        System.out.println("Dungeon selesai dijelajahi!");
+        System.out.println("You have explored the entire dungeon!");
     }
 
     private void handleCombat(Enemy enemy) throws InterruptedException {
@@ -146,31 +149,31 @@ public class Game {
             clearConsole();
             player.info();
 
-            System.out.println("\nPilih aksi:");
-            System.out.println("1. Serang");
-            System.out.println("2. Gunakan Potion");
-            System.out.print("Masukkan pilihan (1-2): ");
+            System.out.println("\nChoose an action:");
+            System.out.println("1. Attack");
+            System.out.println("2. Use Potion");
+            System.out.print("Enter your choice (1-2): ");
             int action = scanner.nextInt();
 
             System.out.println();
-            Thread.sleep(1000);
+            Thread.sleep(500);
 
             switch (action) {
                 case 1 -> player.performAttack(enemy);
                 case 2 -> player.usePotion();
                 default -> {
-                    System.out.println("Pilihan tidak valid. Menyerang secara default.");
+                    System.out.println("Invalid choice. Attacking by default.");
                     player.performAttack(enemy);
                 }
             }
 
-            Thread.sleep(1000);
+            Thread.sleep(500);
 
             if (enemy.isAlive()) {
                 enemy.performAttack(player);
             }
 
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         }
     }
 
@@ -183,7 +186,8 @@ public class Game {
                 System.out.flush();
             }
         } catch (Exception e) {
-            System.out.println("Gagal membersihkan console.");
+            System.out.println("Failed to clear the console.");
+            e.printStackTrace();
         }
     }
 }

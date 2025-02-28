@@ -20,7 +20,7 @@ public abstract class Character implements Cloneable {
         if (damageTaken < 0) damageTaken = 0;
         health -= damageTaken;
         if (health < 0) health = 0;
-        System.out.println(name + " menerima " + damageTaken + " damage!");
+        System.out.println(name + " took " + damageTaken + " damage!");
     }
 
     public boolean isAlive() {

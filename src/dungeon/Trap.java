@@ -11,7 +11,7 @@ public class Trap implements RoomObject {
     }
 
     public void trigger(Character character) {
-        System.out.println("Perangkap terpicu!");
+        System.out.println("⚠️ A trap has been triggered!");
         character.takeDamage(damage);
     }
 

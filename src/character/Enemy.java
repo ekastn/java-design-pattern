@@ -9,7 +9,7 @@ public class Enemy extends Character implements RoomObject {
 
     @Override
     public void performAttack(Character target) {
-        System.out.println(name + " menyerang " + target.getName());
+        System.out.println(name + " attack " + target.getName());
         target.takeDamage(attackPower);
     }
 

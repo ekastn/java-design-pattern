@@ -15,7 +15,7 @@ public class Potion implements RoomObject {
 
     @Override
     public void interact(Hero hero) {
-        System.out.println("Kamu menemukan potion!");
+        System.out.println("🧪 You found a potion!");
         hero.addPotion(this);
     }
 }
