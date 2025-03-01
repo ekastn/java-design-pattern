@@ -1,6 +1,6 @@
 package behavioral.strategy;
 
-import character.Character;
+import core.Character;
 
 public interface IAttackStrategy {
     void attack(Character target);

@@ -1,6 +1,6 @@
 package structural.composite;
 
-import character.Hero;
+import core.Hero;
 
 public class Potion implements RoomObject {
     private int healingPower;

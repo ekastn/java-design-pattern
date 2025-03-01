@@ -1,7 +1,7 @@
 package structural.composite;
 
-import character.Character;
-import character.Hero;
+import core.Character;
+import core.Hero;
 
 public class Trap implements RoomObject {
     final private int damage;

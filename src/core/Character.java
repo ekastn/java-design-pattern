@@ -1,4 +1,4 @@
-package character;
+package core;
 
 public abstract class Character implements Cloneable {
     protected String name;

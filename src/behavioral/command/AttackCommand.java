@@ -1,7 +1,7 @@
 package behavioral.command;
 
 
-import character.Character;
+import core.Character;
 
 public class AttackCommand implements Command{
     private Character attacker;

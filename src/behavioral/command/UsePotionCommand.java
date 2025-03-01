@@ -1,6 +1,6 @@
 package behavioral.command;
 
-import character.Hero;
+import core.Hero;
 
 public class UsePotionCommand implements Command {
     private Hero hero;

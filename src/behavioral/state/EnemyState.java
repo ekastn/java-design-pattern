@@ -1,7 +1,7 @@
 package behavioral.state;
 
-import character.Enemy;
-import character.Hero;
+import core.Enemy;
+import core.Hero;
 
 public interface EnemyState {
     void execute(Enemy enemy, Hero hero);

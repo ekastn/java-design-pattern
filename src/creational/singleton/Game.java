@@ -1,9 +1,8 @@
 package creational.singleton;
 
 import creational.builder.HeroBuilder;
-import character.*;
+import core.*;
 import behavioral.strategy.*;
-import dungeon.*;
 import manager.CombatManager;
 import structural.composite.Room;
 import structural.composite.RoomObject;

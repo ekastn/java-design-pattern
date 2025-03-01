@@ -1,4 +1,4 @@
-package dungeon;
+package core;
 
 import behavioral.iterator.RoomIterator;
 import creational.factorymethod.*;
@@ -33,8 +33,7 @@ public class Dungeon {
             rooms.add(room);
         }
 
-        // Ruangan terakhir adalah jalan keluar
-        rooms.getLast().setDescription("Ruangan " + roomCount + ": Jalan keluar!");
+        rooms.getLast().setDescription("Room " + roomCount + ": find exit!");
     }
 
     public Iterator<Room> iterator() {

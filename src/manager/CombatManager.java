@@ -3,8 +3,8 @@ package manager;
 import behavioral.command.AttackCommand;
 import behavioral.command.Command;
 import behavioral.command.UsePotionCommand;
-import character.Enemy;
-import character.Hero;
+import core.Enemy;
+import core.Hero;
 import utils.ConsoleUtils;
 
 import java.util.Scanner;

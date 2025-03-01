@@ -1,7 +1,7 @@
 package creational.builder;
 
 import behavioral.strategy.IAttackStrategy;
-import character.Hero;
+import core.Hero;
 
 public class HeroBuilder {
     private String name;

@@ -1,6 +1,6 @@
 package creational.prototype;
 
-import character.Enemy;
+import core.Enemy;
 import java.util.HashMap;
 import java.util.Map;
 

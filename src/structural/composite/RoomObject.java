@@ -1,6 +1,6 @@
 package structural.composite;
 
-import character.Hero;
+import core.Hero;
 
 public interface RoomObject {
     public void interact(Hero hero);
