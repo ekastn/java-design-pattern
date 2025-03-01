@@ -1,27 +1,28 @@
 package creational.singleton;
 
+import behavioral.state.game.ExploringState;
+import behavioral.state.game.GameState;
 import creational.builder.HeroBuilder;
 import core.*;
-import behavioral.strategy.*;
 import creational.builder.HeroDirector;
 import manager.CombatManager;
-import structural.composite.Room;
-import structural.composite.RoomObject;
 import utils.ConsoleUtils;
 
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Game {
-    private final Scanner scanner;
+    private boolean running = true;
     private Hero player;
     private Dungeon dungeon;
-    private CombatManager combatManager;
+    private GameState gameState;
+
+    private final Scanner scanner;
+
     private static Game instance;
 
     private Game() {
         this.scanner = new Scanner(System.in);
-        this.combatManager = new CombatManager();
+        this.gameState = new ExploringState();
     }
 
     public static Game getInstance() {
@@ -36,7 +37,12 @@ public class Game {
 
         chooseCharacter();
         createDungeon(5);
-        exploreDungeon();
+
+        dungeon.startExploration();
+
+        while (running) {
+            gameState.execute(this);
+        }
 
         try {
             Thread.sleep(1000);
@@ -79,49 +85,23 @@ public class Game {
         dungeon = new Dungeon(roomCount);
     }
 
-    private void exploreDungeon() {
-        Iterator<Room> iterator = dungeon.iterator();
-        while (iterator.hasNext()) {
-            ConsoleUtils.clearConsole();
-            Room room = iterator.next();
-            System.out.print("========= ");
-            System.out.print(room.getDescription());
-            System.out.print(" of ");
-            System.out.print(dungeon.getRoomCount());
-            System.out.print(" =========");
-            System.out.println();
+    public Dungeon getDungeon() {
+        return dungeon;
+    }
 
-            for (RoomObject obj : room.getObjects()) {
-                if (obj instanceof Enemy enemy) {
-                    enemy.interact(player);
+    public Hero getPlayer() {
+        return player;
+    }
 
-                    try {
-                        Thread.sleep(1000);
-                        combatManager.startCombat(player, enemy);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
 
-                    if (!player.isAlive()) {
-                        System.out.println("Game over!");
-                        return;
-                    }
-                } else {
-                    obj.interact(player);
-                }
-            }
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
 
-            if (room.getDescription().contains("Jalan keluar")) {
-                System.out.println("\n\n");
-                System.out.println("🎉 Congratulations! You escaped the dungeon!");
-                System.out.println("\n\n");
-                return;
-            }
-
-            System.out.println("\nPress Enter to continue...");
-            scanner.nextLine();
-        }
-
-        System.out.println("You have explored the entire dungeon!");
+    public GameState getGameState() {
+        return gameState;
     }
 }

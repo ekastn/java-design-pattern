@@ -1,4 +1,4 @@
-package behavioral.state;
+package behavioral.state.enemy;
 
 import core.Enemy;
 import core.Hero;

@@ -1,6 +1,9 @@
 package core;
 
-import behavioral.state.*;
+import behavioral.state.enemy.AggressiveState;
+import behavioral.state.enemy.DefensiveState;
+import behavioral.state.enemy.EnemyState;
+import behavioral.state.enemy.FleeingState;
 import structural.composite.RoomObject;
 
 public class Enemy extends Character implements RoomObject {
@@ -31,6 +34,13 @@ public class Enemy extends Character implements RoomObject {
             setState(new DefensiveState());
         } else {
             setState(new AggressiveState());
+        }
+    }
+
+    public void takeDamage(int damage) {
+        super.takeDamage(damage);
+        if (isAlive()) {
+            checkState();
         }
     }
 

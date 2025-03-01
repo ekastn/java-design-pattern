@@ -1,27 +1,11 @@
 package behavioral.command;
 
-
 import core.Character;
 
-public class AttackCommand implements Command{
-    private Character attacker;
-    private Character target;
-
-    public AttackCommand(Character attacker, Character target) {
-        this.attacker = attacker;
-        this.target = target;
-    }
-
-    public void setAttacker(Character attacker) {
-        this.attacker = attacker;
-    }
-
-    public void setTarget(Character target) {
-        this.target = target;
-    }
+public class AttackCommand implements CombatCommand {
 
     @Override
-    public void execute() {
+    public void execute(Character attacker, Character target) {
         attacker.performAttack(target);
     }
 }

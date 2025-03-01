@@ -1,15 +1,35 @@
 package structural.composite;
 
+import behavioral.state.game.FightingState;
+import core.Enemy;
+import core.Hero;
+import creational.singleton.Game;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
     private String description;
-    private List<RoomObject> objects;
+    private final List<RoomObject> objects;
 
     public Room(String description) {
         this.description = description;
         this.objects = new ArrayList<>();
+    }
+
+    public void explore(Hero hero) {
+        System.out.println("Exploring " + description + "...");
+
+        for (RoomObject obj : objects) {
+            if (obj instanceof Enemy enemy) {
+                enemy.interact(hero);
+
+                Game.getInstance().setGameState(new FightingState(enemy));
+                Game.getInstance().getGameState().execute(Game.getInstance());
+            } else {
+                obj.interact(hero);
+            }
+        }
     }
 
     public void addObject(RoomObject object) {

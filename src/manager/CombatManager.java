@@ -1,8 +1,6 @@
 package manager;
 
-import behavioral.command.AttackCommand;
-import behavioral.command.Command;
-import behavioral.command.UsePotionCommand;
+import behavioral.command.*;
 import core.Enemy;
 import core.Hero;
 import utils.ConsoleUtils;
@@ -19,7 +17,8 @@ public class CombatManager {
 
             System.out.println("\nChoose an action:");
             System.out.println("1. Attack");
-            System.out.println("2. Use Potion");
+            System.out.println("2. Defend");
+            System.out.println("3. Use Potion");
             System.out.print("Enter your choice (1-2): ");
 
             int action = scanner.nextInt();
@@ -27,24 +26,24 @@ public class CombatManager {
 
             System.out.println();
 
-            Command command;
-            if (action == 1) {
-                command = new AttackCommand(player, enemy);
-            } else if (action == 2) {
-                command = new UsePotionCommand(player);
-            } else {
-                System.out.println("Invalid choice! Defaulting to attack.");
-                command = new AttackCommand(player, enemy);
+            CombatCommand command;
+            switch (action) {
+                case 1 -> command = new AttackCommand();
+                case 2 -> command = new DefendCommand();
+                case 3 -> command = new UsePotionCommand(player);
+                default -> {
+                    System.out.println("Invalid choice! Defaulting to attack.");
+                    command = new AttackCommand();
+                }
             }
 
             System.out.println();
 
-            command.execute();
+            command.execute(player, enemy);
             Thread.sleep(500);
 
             if (enemy.isAlive()) {
-                enemy.checkState();
-                enemy.performAttack(player);
+                new AttackCommand().execute(enemy, player);
             }
 
             Thread.sleep(1000);
