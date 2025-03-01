@@ -3,6 +3,7 @@ package creational.singleton;
 import creational.builder.HeroBuilder;
 import core.*;
 import behavioral.strategy.*;
+import creational.builder.HeroDirector;
 import manager.CombatManager;
 import structural.composite.Room;
 import structural.composite.RoomObject;
@@ -60,40 +61,18 @@ public class Game {
         System.out.print("Enter character name: ");
         String name = scanner.nextLine();
 
-        HeroBuilder heroBuilder = new HeroBuilder().setName(name);
+        HeroDirector heroDirector = new HeroDirector(new HeroBuilder(), name);
 
-        switch (choice) {
-            case 1 -> heroBuilder
-                    .setHealth(120)
-                    .setAttack(25)
-                    .setDefense(20)
-                    .setAttackStrategy(new MeleeAttack());
-            case 2 -> heroBuilder
-                    .setHealth(80)
-                    .setAttack(30)
-                    .setDefense(10)
-                    .setAttackStrategy(new MagicAttack());
-            case 3 -> heroBuilder
-                    .setHealth(90)
-                    .setAttack(35)
-                    .setDefense(15)
-                    .setAttackStrategy(new StealthAttack());
-            case 4 -> heroBuilder
-                    .setHealth(150)
-                    .setAttack(15)
-                    .setDefense(30)
-                    .setAttackStrategy(new MeleeAttack());
+        player = switch (choice) {
+            case 1 -> heroDirector.createWarrior();
+            case 2 -> heroDirector.createMage();
+            case 3 -> heroDirector.createAssassin();
+            case 4 -> heroDirector.createTank();
             default -> {
                 System.out.println("Invalid choice. Defaulting to Warrior.");
-                heroBuilder
-                    .setHealth(120)
-                    .setAttack(25)
-                    .setDefense(20)
-                    .setAttackStrategy(new MeleeAttack());
+                yield heroDirector.createWarrior();
             }
-        }
-
-        player = heroBuilder.build();
+        };
     }
 
     private void createDungeon(int roomCount) {
