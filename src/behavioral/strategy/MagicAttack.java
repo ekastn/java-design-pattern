@@ -1,11 +1,13 @@
 package behavioral.strategy;
 
+import behavioral.observer.EventType;
 import core.Character;
+import creational.singleton.Game;
 
-public class MagicAttack implements IAttackStrategy {
+public class MagicAttack implements AttackStrategy {
     @Override
     public void attack(Character target) {
-        System.out.println("Attacking with magic!");
+        Game.notify(EventType.ATTACK_MAGIC ,"attacking " + target.getName() + " with magic!");
         target.takeDamage(30);
     }
 }

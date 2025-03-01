@@ -1,21 +1,23 @@
 package core;
 
+import behavioral.observer.EventType;
+import creational.singleton.Game;
 import structural.composite.Potion;
-import behavioral.strategy.IAttackStrategy;
+import behavioral.strategy.AttackStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Hero extends Character {
     final private List<Potion> inventory;
-    private IAttackStrategy attackStrategy;
+    private AttackStrategy attackStrategy;
 
     public Hero(String name, int health, int attack, int defense) {
         super(name, health, attack, defense);
         this.inventory = new ArrayList<>();
     }
 
-    public void setAttackStrategy(IAttackStrategy attackStrategy) {
+    public void setAttackStrategy(AttackStrategy attackStrategy) {
         this.attackStrategy = attackStrategy;
     }
 
@@ -30,9 +32,9 @@ public class Hero extends Character {
         if (!inventory.isEmpty()) {
             Potion potion = inventory.removeFirst();
             health += potion.getHealingPower();
-            System.out.println(name + " uses a potion. Health increased: " + health);
+            Game.notify(EventType.POTION_USED, "You used a potion. Health increased: " + health);
         } else {
-            System.out.println("You don't have any potion.");
+            Game.notify(EventType.WARNING, "You don't have any potion.");
         }
     }
 

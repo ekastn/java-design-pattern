@@ -1,9 +1,11 @@
 package core;
 
+import behavioral.observer.EventType;
 import behavioral.state.enemy.AggressiveState;
 import behavioral.state.enemy.DefensiveState;
 import behavioral.state.enemy.EnemyState;
 import behavioral.state.enemy.FleeingState;
+import creational.singleton.Game;
 import structural.composite.RoomObject;
 
 public class Enemy extends Character implements RoomObject {
@@ -53,7 +55,7 @@ public class Enemy extends Character implements RoomObject {
 
     @Override
     public void interact(Hero hero) {
-        System.out.println("You encountered an enemy: " + name + "!");
-        System.out.println("Ready to battle! ⚔️ ");
+        Game.notify(EventType.BASIC, "You encountered an enemy: " + name + "!");
+        Game.notify(EventType.BASIC, "Ready to battle! ⚔️ ");
     }
 }

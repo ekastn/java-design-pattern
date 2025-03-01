@@ -1,12 +1,13 @@
 package behavioral.state.game;
 
+import behavioral.observer.EventType;
 import creational.singleton.Game;
 
 public class ExploringState implements GameState {
     @Override
     public void execute(Game game) {
         if (game.getDungeon().isComplete()) {
-            System.out.println("🎉 You found the exit!");
+            Game.notify(EventType.CONGRATS, "You found the exit!");
             game.setGameState(new GameOverState());
             return;
         }

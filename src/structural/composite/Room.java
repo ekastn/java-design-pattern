@@ -1,5 +1,6 @@
 package structural.composite;
 
+import behavioral.observer.EventType;
 import behavioral.state.game.FightingState;
 import core.Enemy;
 import core.Hero;
@@ -18,7 +19,7 @@ public class Room {
     }
 
     public void explore(Hero hero) {
-        System.out.println("Exploring " + description + "...");
+        Game.notify(EventType.ROOM_EXPLORED, "Exploring " + description + "...");
 
         for (RoomObject obj : objects) {
             if (obj instanceof Enemy enemy) {

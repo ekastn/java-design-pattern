@@ -1,7 +1,9 @@
 package structural.composite;
 
+import behavioral.observer.EventType;
 import core.Character;
 import core.Hero;
+import creational.singleton.Game;
 
 public class Trap implements RoomObject {
     final private int damage;
@@ -11,7 +13,7 @@ public class Trap implements RoomObject {
     }
 
     public void trigger(Character character) {
-        System.out.println("⚠️ A trap has been triggered!");
+        Game.notify(EventType.WARNING, "A trap has been triggered!");
         character.takeDamage(damage);
     }
 

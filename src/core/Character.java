@@ -1,5 +1,8 @@
 package core;
 
+import behavioral.observer.EventType;
+import creational.singleton.Game;
+
 public abstract class Character implements Cloneable {
     protected String name;
     protected int health;
@@ -20,7 +23,7 @@ public abstract class Character implements Cloneable {
         if (damageTaken < 0) damageTaken = 0;
         health -= damageTaken;
         if (health < 0) health = 0;
-        System.out.println(name + " took " + damageTaken + " damage!");
+        Game.notify(EventType.CHARACTER_HURT, name + " took " + damageTaken + " damage!");
     }
 
     public boolean isAlive() {

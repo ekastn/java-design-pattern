@@ -1,6 +1,6 @@
 package creational.builder;
 
-import behavioral.strategy.IAttackStrategy;
+import behavioral.strategy.AttackStrategy;
 import core.Hero;
 
 public class HeroBuilder {
@@ -8,7 +8,7 @@ public class HeroBuilder {
     private int health;
     private int attack;
     private int defense;
-    private IAttackStrategy attackStrategy;
+    private AttackStrategy attackStrategy;
 
     public HeroBuilder setName(String name) {
         this.name = name;
@@ -30,7 +30,7 @@ public class HeroBuilder {
         return this;
     }
 
-    public HeroBuilder setAttackStrategy(IAttackStrategy attackStrategy) {
+    public HeroBuilder setAttackStrategy(AttackStrategy attackStrategy) {
         this.attackStrategy = attackStrategy;
         return this;
     }

@@ -2,7 +2,7 @@ package behavioral.strategy;
 
 import core.Character;
 
-public interface IAttackStrategy {
+public interface AttackStrategy {
     void attack(Character target);
 }
 

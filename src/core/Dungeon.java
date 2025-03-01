@@ -1,9 +1,11 @@
 package core;
 
 import behavioral.iterator.RoomIterator;
+import behavioral.observer.EventType;
 import creational.factorymethod.*;
 import creational.singleton.Game;
 import structural.composite.Room;
+import utils.ConsoleUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,16 +34,17 @@ public class Dungeon {
         if (iterator.hasNext()) {
             exploreNextRoom();
         } else {
-            System.out.println("The dungeon is empty!");
+            Game.notify(EventType.WARNING, "The dungeon is empty!");
         }
     }
 
     public void exploreNextRoom() {
+        ConsoleUtils.clearConsole();
         if (iterator.hasNext()) {
             Room nextRoom = iterator.next();
             nextRoom.explore(Game.getInstance().getPlayer());
         } else {
-            System.out.println("No more rooms left in the dungeon.");
+            Game.notify(EventType.WARNING, "No more rooms left in the dungeon.");
         }
     }
 

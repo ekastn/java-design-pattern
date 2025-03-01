@@ -1,11 +1,13 @@
 package creational.singleton;
 
+import behavioral.observer.EventManager;
+import behavioral.observer.EventType;
+import behavioral.observer.LoggingListener;
 import behavioral.state.game.ExploringState;
 import behavioral.state.game.GameState;
 import creational.builder.HeroBuilder;
 import core.*;
 import creational.builder.HeroDirector;
-import manager.CombatManager;
 import utils.ConsoleUtils;
 
 import java.util.Scanner;
@@ -19,6 +21,7 @@ public class Game {
     private final Scanner scanner;
 
     private static Game instance;
+    private static final EventManager eventManager = new EventManager();
 
     private Game() {
         this.scanner = new Scanner(System.in);
@@ -30,7 +33,13 @@ public class Game {
         return instance;
     }
 
+    public static void notify(EventType eventType, String message) {
+        eventManager.notify(eventType, message);
+    }
+
     public void start() {
+        eventManager.subscribe(new LoggingListener());
+
         ConsoleUtils.clearConsole();
         System.out.println("Welcome to The Dungeon Adventure!");
         System.out.println("Your only goal is to survive!");
