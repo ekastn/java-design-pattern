@@ -5,6 +5,7 @@ import behavioral.observer.EventType;
 import behavioral.observer.LoggingListener;
 import behavioral.state.game.ExploringState;
 import behavioral.state.game.GameState;
+import creational.builder.DungeonBuilder;
 import creational.builder.HeroBuilder;
 import core.*;
 import creational.builder.HeroDirector;
@@ -45,7 +46,7 @@ public class Game {
         System.out.println("Your only goal is to survive!");
 
         chooseCharacter();
-        createDungeon(5);
+        createDungeon();
 
         dungeon.startExploration();
 
@@ -90,8 +91,8 @@ public class Game {
         };
     }
 
-    private void createDungeon(int roomCount) {
-        dungeon = new Dungeon(roomCount);
+    private void createDungeon() {
+        dungeon = new DungeonBuilder().setRoomCount(5).build();
     }
 
     public Dungeon getDungeon() {
