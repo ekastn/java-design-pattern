@@ -22,14 +22,7 @@ public class Room {
         Game.notify(EventType.ROOM_EXPLORED, "Exploring " + description + "...");
 
         for (RoomObject obj : objects) {
-            if (obj instanceof Enemy enemy) {
-                enemy.interact(hero);
-
-                Game.getInstance().setGameState(new FightingState(enemy));
-                Game.getInstance().getGameState().execute(Game.getInstance());
-            } else {
-                obj.interact(hero);
-            }
+            obj.interact(hero);
         }
     }
 

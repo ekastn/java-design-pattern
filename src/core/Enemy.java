@@ -5,6 +5,7 @@ import behavioral.state.enemy.AggressiveState;
 import behavioral.state.enemy.DefensiveState;
 import behavioral.state.enemy.EnemyState;
 import behavioral.state.enemy.FleeingState;
+import behavioral.state.game.FightingState;
 import creational.singleton.Game;
 import structural.composite.RoomObject;
 
@@ -57,5 +58,8 @@ public class Enemy extends Character implements RoomObject {
     public void interact(Hero hero) {
         Game.notify(EventType.BASIC, "You encountered an enemy: " + name + "!");
         Game.notify(EventType.BASIC, "Ready to battle! ⚔️ ");
+
+        Game.getInstance().setGameState(new FightingState(this));
+        Game.getInstance().getGameState().execute(Game.getInstance());
     }
 }
