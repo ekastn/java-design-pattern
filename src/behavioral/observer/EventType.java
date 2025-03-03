@@ -16,6 +16,8 @@ public enum EventType {
     ROOM_EXPLORED("🚪"),
     WARNING("⚠️"),
     CONGRATS("🎉"),
+    GAME_STATE("🎮"),
+    DUNGEON_PROGRESS("🗺️"),
     BASIC(" ");
 
     final String icon;

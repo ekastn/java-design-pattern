@@ -7,7 +7,6 @@ import core.Dungeon;
 import core.Hero;
 import utils.ConsoleUtils;
 
-
 public class Game {
     private boolean running = true;
     private Hero player;
@@ -32,9 +31,9 @@ public class Game {
 
     public void start() {
         eventManager.subscribe(new LoggingListener());
-
+        eventManager.subscribe(new GameStateListener());
+        eventManager.subscribe(new DungeonProgressListener());
         ConsoleUtils.clearConsole();
-
 
         while (running) {
             gameState.execute(this);
@@ -70,6 +69,7 @@ public class Game {
     }
 
     public void setGameState(GameState gameState) {
+        eventManager.notify(EventType.GAME_STATE, "Game state changed to " + gameState.getClass().getSimpleName());
         this.gameState = gameState;
     }
 
