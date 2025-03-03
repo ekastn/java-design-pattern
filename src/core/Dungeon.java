@@ -15,16 +15,7 @@ public class Dungeon {
         this.iterator = new RoomIterator(rooms);
     }
 
-    public void startExploration() {
-        if (iterator.hasNext()) {
-            exploreNextRoom();
-        } else {
-            Game.notify(EventType.WARNING, "The dungeon is empty!");
-        }
-    }
-
     public void exploreNextRoom() {
-        ConsoleUtils.clearConsole();
         if (iterator.hasNext()) {
             Room nextRoom = iterator.next();
             nextRoom.explore(Game.getInstance().getPlayer());
