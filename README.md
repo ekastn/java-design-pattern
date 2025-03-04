@@ -17,10 +17,15 @@ tepat
 untuk bertahan hidup dan menemukan jalan keluar dari dungeon.
 
 ### Menjalankan Aplikasi
+- Menggunakan java CLI
 ```bash
 # Compile dan jalankan program
 $ javac -d out src/**/*.java
 $ java -cp out Main
+```
+- Menggunakan docker
+```bash
+$ docker run -it fzymorn/java-design-pattern
 ```
 
 ### **Use Case Diagram**
