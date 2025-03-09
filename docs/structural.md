@@ -103,7 +103,7 @@ classDiagram
     ConcreteAdapter --> Adaptee : adapts
 ```
 
-## **Struktur Kelas Adapter Pattern**
+### **Struktur Kelas Adapter Pattern**
 
 Dalam implementasi ini, Adapter Pattern digunakan untuk menghubungkan kontroler klasik dengan sistem permainan yang
 hanya mendukung kontroler modern. Kontroler klasik memiliki cara kerja yang tidak sepenuhnya kompatibel dengan sistem
@@ -156,3 +156,94 @@ Selain kontroler klasik, sistem juga mendukung kontroler modern seperti `PS5Cont
 antarmuka yang diharapkan tanpa memerlukan adapter. Dengan adanya adapter, berbagai jenis kontroler bisa digunakan tanpa
 perlu mengubah struktur permainan. Jika ada kontroler lain yang tidak kompatibel, cukup dibuat adapter yang sesuai agar
 dapat digunakan dalam sistem.
+
+---
+
+## **Bridge Pattern**
+
+Bridge Pattern adalah pola desain yang memisahkan abstraksi dari implementasinya sehingga keduanya dapat bervariasi
+secara independen. Pola ini berguna untuk mengurangi kompleksitas kode dengan memisahkan antarmuka dari
+fungsionalitasnya.
+
+```mermaid
+classDiagram
+    class Abstraction {
+        +operation() void
+    }
+
+    class RefinedAbstraction {
+        +operation() void
+    }
+
+    class Implementor {
+        +operationImpl() void
+    }
+
+    class ConcreteImplementorA {
+        +operationImpl() void
+    }
+
+    class ConcreteImplementorB {
+        +operationImpl() void
+    }
+
+    Abstraction <|-- RefinedAbstraction
+    Abstraction --> Implementor
+    Implementor <|-- ConcreteImplementorA
+    Implementor <|-- ConcreteImplementorB
+```
+
+### **Struktur Kelas Bridge Pattern**
+
+Dalam implementasi ini, Bridge Pattern digunakan untuk memisahkan antarmuka remote control dari perangkat yang
+dikendalikannya. `RemoteControl` adalah abstraksi dasar, sementara `BasicRemote` dan `AdvancedRemote` adalah abstraksi
+yang lebih spesifik. `Device` adalah implementor yang diwakili oleh `TV` dan `Radio`.
+
+```mermaid
+classDiagram
+direction TB
+    class RemoteControl {
+        +togglePower() void
+        +volumeUp() void
+        +volumeDown() void
+        +channelUp() void
+        +channelDown() void
+        +printDeviceStatus() void
+    }
+
+    class BasicRemote {
+    }
+
+    class AdvancedRemote {
+        +mute() void
+        +setFavoriteChannel(int channelNumber) void
+    }
+
+    class Device {
+        +isEnabled() boolean
+        +enable() void
+        +disable() void
+        +getVolume() int
+        +setVolume(int volume) void
+        +getChannel() int
+        +setChannel(int channel) void
+        +printStatus() void
+    }
+
+    class TV {
+    }
+
+    class Radio {
+    }
+
+    RemoteControl <|-- BasicRemote
+    RemoteControl <|-- AdvancedRemote
+    RemoteControl --> Device
+    Device <|-- TV
+    Device <|-- Radio
+```
+
+Dalam implementasinya, `RemoteControl` menyimpan referensi ke `Device`, yang bisa berupa `TV` atau `Radio`.
+`BasicRemote` menyediakan kontrol dasar seperti menghidupkan/mematikan perangkat, mengatur volume, dan mengganti
+saluran. `AdvancedRemote` menambahkan fitur tambahan seperti mute dan pengaturan saluran favorit. Dengan pendekatan ini,
+menambahkan perangkat baru atau remote control baru tidak memerlukan perubahan besar dalam kode.
