@@ -247,3 +247,120 @@ Dalam implementasinya, `RemoteControl` menyimpan referensi ke `Device`, yang bis
 `BasicRemote` menyediakan kontrol dasar seperti menghidupkan/mematikan perangkat, mengatur volume, dan mengganti
 saluran. `AdvancedRemote` menambahkan fitur tambahan seperti mute dan pengaturan saluran favorit. Dengan pendekatan ini,
 menambahkan perangkat baru atau remote control baru tidak memerlukan perubahan besar dalam kode.
+
+---
+
+## **Decorator Pattern**
+
+Decorator Pattern adalah pola desain yang memungkinkan penambahan perilaku baru pada objek secara dinamis dengan
+membungkusnya dalam objek dekorator. Pola ini berguna untuk memperluas fungsionalitas objek tanpa mengubah kodenya.
+
+```mermaid
+classDiagram
+    class Component {
+        +getDescription() String
+        +getCost() double
+    }
+
+    class ConcreteComponent {
+        +getDescription() String
+        +getCost() double
+    }
+
+    class Decorator {
+        +getDescription() String
+        +getCost() double
+    }
+
+    class ConcreteDecoratorA {
+        +getDescription() String
+        +getCost() double
+    }
+
+    class ConcreteDecoratorB {
+        +getDescription() String
+        +getCost() double
+    }
+
+    Component <|-- ConcreteComponent
+    Component <|-- Decorator
+    Decorator <|-- ConcreteDecoratorA
+    Decorator <|-- ConcreteDecoratorB
+    Decorator --> Component
+```
+
+### **Struktur Kelas Decorator Pattern**
+
+Dalam implementasi ini, Decorator Pattern digunakan untuk menambahkan fitur tambahan pada objek kopi. `Coffee` adalah
+komponen dasar, sementara `SimpleCoffee`, `Espresso`, dan `DarkRoast` adalah komponen konkret. `CoffeeDecorator` adalah
+dekorator abstrak yang diimplementasikan oleh dekorator konkret seperti `MilkDecorator`, `WhippedCreamDecorator`,
+`ChocolateDecorator`, `CaramelDecorator`, dan `VanillaDecorator`.
+
+```mermaid
+classDiagram
+direction TB
+    class Coffee {
+        +getDescription() String
+        +getCost() double
+    }
+
+    class SimpleCoffee {
+        +getDescription() String
+        +getCost() double
+    }
+
+    class Espresso {
+        +getDescription() String
+        +getCost() double
+    }
+
+    class DarkRoast {
+        +getDescription() String
+        +getCost() double
+    }
+
+    class CoffeeDecorator {
+        +getDescription() String
+        +getCost() double
+    }
+
+    class MilkDecorator {
+        +getDescription() String
+        +getCost() double
+    }
+
+    class WhippedCreamDecorator {
+        +getDescription() String
+        +getCost() double
+    }
+
+    class ChocolateDecorator {
+        +getDescription() String
+        +getCost() double
+    }
+
+    class CaramelDecorator {
+        +getDescription() String
+        +getCost() double
+    }
+
+    class VanillaDecorator {
+        +getDescription() String
+        +getCost() double
+    }
+
+    Coffee <|.. SimpleCoffee
+    Coffee <|.. Espresso
+    Coffee <|.. DarkRoast
+    Coffee <|-- CoffeeDecorator
+    CoffeeDecorator <|.. MilkDecorator
+    CoffeeDecorator <|.. WhippedCreamDecorator
+    CoffeeDecorator <|.. ChocolateDecorator
+    CoffeeDecorator <|.. CaramelDecorator
+    CoffeeDecorator <|.. VanillaDecorator
+    CoffeeDecorator --> Coffee
+```
+
+Dalam implementasinya, `CoffeeDecorator` membungkus objek `Coffee` dan menambahkan fitur tambahan seperti susu, krim
+kocok, cokelat, karamel, dan vanila. Dengan pendekatan ini, kita dapat membuat berbagai kombinasi kopi dengan fitur
+tambahan tanpa mengubah struktur dasar objek kopi.
