@@ -364,3 +364,66 @@ direction TB
 Dalam implementasinya, `CoffeeDecorator` membungkus objek `Coffee` dan menambahkan fitur tambahan seperti susu, krim
 kocok, cokelat, karamel, dan vanila. Dengan pendekatan ini, kita dapat membuat berbagai kombinasi kopi dengan fitur
 tambahan tanpa mengubah struktur dasar objek kopi.
+
+---
+
+## **Proxy Pattern**
+
+Proxy Pattern adalah pola desain yang menyediakan pengganti atau placeholder untuk objek lain untuk mengontrol akses ke
+objek tersebut. Pola ini berguna untuk mengimplementasikan lazy initialization, kontrol akses, logging, dan lainnya.
+
+```mermaid
+classDiagram
+    class Subject {
+        +request() void
+    }
+
+    class RealSubject {
+        +request() void
+    }
+
+    class Proxy {
+        +request() void
+    }
+
+    Subject <|-- RealSubject
+    Subject <|-- Proxy
+    Proxy --> RealSubject
+```
+
+### **Struktur Kelas Proxy Pattern**
+
+Dalam implementasi ini, Proxy Pattern digunakan untuk mengontrol akses ke internet. `Internet` adalah antarmuka subjek,
+`RealInternet` adalah subjek nyata, dan `ProxyInternet` adalah proxy yang mengontrol akses ke subjek nyata.
+
+```mermaid
+classDiagram
+direction TB
+    class Internet {
+        +connectTo(String serverHost) void
+    }
+
+    class RealInternet {
+        +connectTo(String serverHost) void
+    }
+
+    class ProxyInternet {
+        +connectTo(String serverHost) void
+        +printAccessStatistics() void
+    }
+
+    class OfficeNetworkProxy {
+        +connectTo(String serverHost) void
+        +printProductivityReport() void
+    }
+
+    Internet <|.. RealInternet
+    Internet <|.. ProxyInternet
+    ProxyInternet <|.. OfficeNetworkProxy
+    ProxyInternet --> RealInternet
+```
+
+Dalam implementasinya, `ProxyInternet` mengontrol akses ke `RealInternet` dengan memeriksa apakah situs yang diminta
+dibatasi dan mencatat akses. `OfficeNetworkProxy` memperluas `ProxyInternet` untuk menambahkan pemeriksaan tambahan
+untuk produktivitas selama jam kerja. Pendekatan ini memungkinkan akses yang fleksibel dan terkontrol ke internet tanpa
+mengubah subjek nyata.
