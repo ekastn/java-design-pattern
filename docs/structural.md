@@ -427,3 +427,75 @@ Dalam implementasinya, `ProxyInternet` mengontrol akses ke `RealInternet` dengan
 dibatasi dan mencatat akses. `OfficeNetworkProxy` memperluas `ProxyInternet` untuk menambahkan pemeriksaan tambahan
 untuk produktivitas selama jam kerja. Pendekatan ini memungkinkan akses yang fleksibel dan terkontrol ke internet tanpa
 mengubah subjek nyata.
+
+---
+
+## **Flyweight Pattern**
+
+Flyweight Pattern adalah pola desain yang meminimalkan penggunaan memori dengan berbagi data sebanyak mungkin dengan
+objek serupa. Pola ini berguna untuk mengurangi jumlah objek yang dibuat dan mengurangi jejak memori.
+
+```mermaid
+classDiagram
+    class Flyweight {
+        +operation(String extrinsicState) void
+    }
+
+    class ConcreteFlyweight {
+        -String intrinsicState
+        +operation(String extrinsicState) void
+    }
+
+    class FlyweightFactory {
+        -HashMap<String, Flyweight> flyweights
+        +getFlyweight(String key) Flyweight
+    }
+
+    Flyweight <|-- ConcreteFlyweight
+    FlyweightFactory --> Flyweight
+```
+
+### **Struktur Kelas Flyweight Pattern**
+
+Dalam implementasi ini, Flyweight Pattern digunakan untuk mengelola entitas permainan seperti pohon di hutan.
+`GameEntity` adalah antarmuka flyweight, `Tree` adalah flyweight konkret, dan `GameEntityFactory` adalah pabrik
+flyweight.
+
+```mermaid
+classDiagram
+direction TB
+    class GameEntity {
+        +render(int posX, int posY, float scale, int facing) void
+    }
+
+    class Tree {
+        -String textureFile
+        -int polygons
+        -String type
+        +render(int posX, int posY, float scale, int facing) void
+    }
+
+    class GameEntityFactory {
+        -HashMap<String, GameEntity> entityCache
+        +getTree(String type) GameEntity
+    }
+
+    class ForestRenderer {
+        -GameEntity[][] forest
+        -int[][] positions
+        -float[][] scales
+        -int[][] facings
+        -int width
+        -int height
+        +renderForest() void
+    }
+
+    GameEntity <|.. Tree
+    GameEntityFactory --> GameEntity
+    ForestRenderer --> GameEntity
+```
+
+Dalam implementasinya, `GameEntityFactory` mengelola pembuatan dan penggunaan kembali objek `Tree`. `ForestRenderer`
+menggunakan objek flyweight ini untuk merender hutan dengan banyak pohon, berbagi status intrinsik (seperti tekstur dan
+poligon) di antara pohon-pohon dengan jenis yang sama. Pendekatan ini mengurangi penggunaan memori dengan menggunakan
+kembali objek pohon.
