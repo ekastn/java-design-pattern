@@ -499,3 +499,63 @@ Dalam implementasinya, `GameEntityFactory` mengelola pembuatan dan penggunaan ke
 menggunakan objek flyweight ini untuk merender hutan dengan banyak pohon, berbagi status intrinsik (seperti tekstur dan
 poligon) di antara pohon-pohon dengan jenis yang sama. Pendekatan ini mengurangi penggunaan memori dengan menggunakan
 kembali objek pohon.
+
+---
+
+## **Facade Pattern**
+
+Facade Pattern adalah pola desain yang menyediakan antarmuka yang disederhanakan untuk subsistem yang kompleks. Pola ini
+berguna untuk membuat sistem lebih mudah digunakan dan dipahami dengan menyediakan antarmuka tingkat tinggi.
+
+```mermaid
+classDiagram
+    class Facade {
+        -linkToSubSystemObjects
+        +jump(long position) void
+        +subSystemOperation()
+    }
+
+		Facade ..|> SybSystemA
+		Facade ..|> SybSystemB
+		Facade ..|> SybSystemC
+```
+
+### **Struktur Kelas Facade Pattern**
+
+Dalam implementasi ini, Facade Pattern digunakan untuk menyederhanakan proses startup dan shutdown komputer. `CPU`,
+`Memory`, dan `HardDrive` adalah kelas subsistem yang kompleks, sementara `ComputerFacade` menyediakan antarmuka yang
+disederhanakan untuk subsistem ini.
+
+```mermaid
+classDiagram
+direction TB
+    class CPU {
+        +freeze() void
+        +jump(long position) void
+        +execute() void
+    }
+
+    class Memory {
+        +load(long position, byte[] data) void
+    }
+
+    class HardDrive {
+        +read(long lba, int size) byte[]
+    }
+
+    class ComputerFacade {
+        -CPU cpu
+        -Memory memory
+        -HardDrive hardDrive
+        +start() void
+        +shutDown() void
+    }
+		
+		ComputerFacade ..|> CPU
+		ComputerFacade ..|> Memory
+		ComputerFacade ..|> HardDrive
+```
+
+Dalam implementasinya, `ComputerFacade` mengelola interaksi antara `CPU`, `Memory`, dan `HardDrive` untuk memulai dan
+mematikan komputer. Pendekatan ini menyembunyikan kompleksitas subsistem dan menyediakan antarmuka sederhana untuk
+klien.
