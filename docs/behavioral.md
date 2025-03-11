@@ -692,3 +692,74 @@ Dalam implementasinya, `Drawing` menyimpan daftar `Shape`, yang bisa berupa `Cir
 `AreaCalculator`, `PerimeterCalculator`, dan `XMLExportVisitor` mengunjungi setiap bentuk untuk menghitung area,
 menghitung perimeter, dan mengekspor ke XML. Pendekatan ini memungkinkan penambahan operasi baru tanpa mengubah struktur
 kelasnya.
+
+---
+
+## **Template Method Pattern**
+
+Template Method Pattern adalah pola desain yang mendefinisikan kerangka algoritma dalam metode di kelas dasar, tetapi
+memungkinkan subclass untuk mengisi langkah-langkah tertentu dari algoritma tersebut. Pola ini berguna untuk
+mendefinisikan struktur umum dari algoritma sambil membiarkan detail implementasi bervariasi.
+
+```mermaid
+classDiagram
+    class AbstractClass {
+        +templateMethod() 
+        #subMethod() 
+    }
+
+    class ConcreteClass {
+        +subMethos() 
+    }
+
+    AbstractClass <|-- ConcreteClass
+```
+
+### **Struktur Kelas Template Method Pattern**
+
+Dalam implementasi ini, Template Method Pattern digunakan untuk mendefinisikan perilaku karakter dalam permainan.
+`GameCharacterAI` adalah kelas abstrak yang mendefinisikan kerangka algoritma untuk siklus perilaku karakter.
+`AggressiveEnemyAI`, `SupportCharacterAI`, dan `StealthCharacterAI` adalah kelas konkret yang mengisi langkah-langkah
+spesifik dari algoritma tersebut.
+
+```mermaid
+classDiagram
+direction TB
+    class GameCharacterAI {
+        +executeTurn() void
+        #evaluateThreats() void
+        #choosePrimaryTarget() void
+        #selectAction() void
+        #performSpecialAbility() void
+    }
+
+    class AggressiveEnemyAI {
+        +evaluateThreats() void
+        +choosePrimaryTarget() void
+        +selectAction() void
+        +performSpecialAbility() void
+    }
+
+    class SupportCharacterAI {
+        +evaluateThreats() void
+        +choosePrimaryTarget() void
+        +selectAction() void
+    }
+
+    class StealthCharacterAI {
+        +evaluateThreats() void
+        +choosePrimaryTarget() void
+        +selectAction() void
+        +performSpecialAbility() void
+    }
+
+    GameCharacterAI <|-- AggressiveEnemyAI
+    GameCharacterAI <|-- SupportCharacterAI
+    GameCharacterAI <|-- StealthCharacterAI
+```
+
+Dalam implementasinya, `GameCharacterAI` mendefinisikan metode `executeTurn` yang merupakan kerangka algoritma untuk
+siklus perilaku karakter. Metode ini memanggil beberapa metode abstrak seperti `evaluateThreats`, `choosePrimaryTarget`,
+dan `selectAction` yang diimplementasikan oleh subclass. `AggressiveEnemyAI`, `SupportCharacterAI`, dan
+`StealthCharacterAI` mengisi langkah-langkah spesifik dari algoritma tersebut sesuai dengan perilaku karakter
+masing-masing.
