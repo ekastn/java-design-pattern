@@ -491,3 +491,86 @@ direction TB
 Dalam implementasinya, `ChainOfResponsibilityDemo` membuat rantai penanganan permintaan dengan menghubungkan `Manager`,
 `Director`, `VP`, dan `CEO`. Setiap permintaan pembelian diproses oleh penangan yang sesuai berdasarkan jumlahnya. Jika
 penangan tidak dapat menyetujui permintaan, permintaan akan diteruskan ke penangan berikutnya dalam rantai.
+
+---
+
+## **Mediator Pattern**
+
+Mediator Pattern adalah pola desain yang memungkinkan komunikasi antar objek dalam sistem melalui objek mediator. Pola
+ini berguna untuk mengurangi kompleksitas komunikasi langsung antar objek dan memfasilitasi pengelolaan interaksi antar
+objek.
+
+```mermaid
+classDiagram
+    class Mediator
+
+    class ConcreteMediator
+
+    class Colleague {
+        <<interface>>
+    }
+
+    class ConcreteColleague
+
+    Mediator <|-- ConcreteMediator : Implements
+    Colleague <|-- ConcreteColleague : Implements
+
+    Mediator <-- Colleague : informs
+    ConcreteMediator --> ConcreteColleague : updates
+```
+
+### **Struktur Kelas Mediator Pattern**
+
+Dalam implementasi ini, Mediator Pattern digunakan untuk mengelola komunikasi dalam chat room. `ChatMediator` adalah
+antarmuka mediator, `ChatRoom` adalah mediator konkret, dan `User` adalah kelas abstrak untuk pengguna. `RegularUser`,
+`PremiumUser`, dan `AdminUser` adalah kelas konkret yang mewakili berbagai jenis pengguna dalam ruang obrolan.
+
+```mermaid
+classDiagram
+direction TB
+    class ChatMediator {
+        +sendMessage(String message, User user) void
+        +addUser(User user) void
+    }
+
+    class ChatRoom {
+				-List~User~ users
+        +sendMessage(String message, User user) void
+        +addUser(User user) void
+    }
+
+    class User {
+				-ChatMediator mediator
+        +send(String message) void
+        +receive(String message, String from) void
+    }
+
+    class RegularUser {
+        +send(String message) void
+        +receive(String message, String from) void
+    }
+
+    class PremiumUser {
+        +send(String message) void
+        +receive(String message, String from) void
+        +sendPriorityMessage(String message) void
+    }
+
+    class AdminUser {
+        +send(String message) void
+        +receive(String message, String from) void
+        +sendSystemMessage(String message) void
+    }
+
+    ChatMediator <|.. ChatRoom
+    User <|-- RegularUser
+    User <|-- PremiumUser
+    User <|-- AdminUser
+    ChatMediator --> User
+```
+
+Dalam implementasinya, `ChatRoom` mengelola daftar pengguna dan mendistribusikan pesan yang diterima dari satu pengguna
+ke semua pengguna lain dalam ruang obrolan. `RegularUser`, `PremiumUser`, dan `AdminUser` memiliki metode `send` dan
+`receive` untuk mengirim dan menerima pesan. `PremiumUser` dan `AdminUser` memiliki metode tambahan untuk mengirim pesan
+prioritas dan pesan sistem. Pendekatan ini memisahkan logika komunikasi dari pengguna individu dan memusatkannya dalam
+mediator.
