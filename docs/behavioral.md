@@ -763,3 +763,73 @@ siklus perilaku karakter. Metode ini memanggil beberapa metode abstrak seperti `
 dan `selectAction` yang diimplementasikan oleh subclass. `AggressiveEnemyAI`, `SupportCharacterAI`, dan
 `StealthCharacterAI` mengisi langkah-langkah spesifik dari algoritma tersebut sesuai dengan perilaku karakter
 masing-masing.
+
+---
+## **Memento Pattern**
+
+Memento Pattern adalah pola desain yang memungkinkan Anda untuk menangkap dan mengeksternalisasi keadaan internal suatu
+objek sehingga dapat dipulihkan nanti tanpa melanggar enkapsulasi. Pola ini berguna untuk mengimplementasikan fungsi
+undo dan redo.
+
+```mermaid
+classDiagram
+    class Memento {
+        -state
+    }
+
+    class Originator {
+        -state
+        +setMemento(in m : Memento)
+        +createMemento()
+    }
+
+    class Caretaker
+
+    Originator --> Memento : creates/restores
+    Caretaker --> Memento : stores
+```
+
+### **Struktur Kelas Memento Pattern**
+
+Dalam implementasi ini, Memento Pattern digunakan untuk mengelola keadaan editor teks. `TextEditor` adalah kelas
+originator yang membuat memento untuk menyimpan keadaannya. `EditorMemento` adalah kelas memento yang menyimpan keadaan.
+`History` adalah kelas caretaker yang mengelola memento untuk operasi undo dan redo.
+
+```mermaid
+classDiagram
+direction TB
+    class TextEditor {
+        +write(String text) void
+        +delete() void
+        +selectText(String text) void
+        +moveCursor(int position) void
+        +displayState() void
+        +save() EditorMemento
+        +restore(EditorMemento memento) void
+    }
+
+    class EditorMemento {
+        +getSnapshotInfo() String
+    }
+
+    class History {
+        +save(TextEditor editor) void
+        +undo(TextEditor editor) void
+        +redo(TextEditor editor) void
+        +showHistory() void
+    }
+
+    class MementoPatternDemo {
+        +main(String[] args) void
+    }
+
+    TextEditor --> EditorMemento : creates
+    History --> EditorMemento : manages
+    MementoPatternDemo --> TextEditor
+    MementoPatternDemo --> History
+```
+
+Dalam implementasinya, `TextEditor` memiliki metode untuk menulis, menghapus, memilih teks, dan memindahkan kursor. Ia
+dapat membuat dan memulihkan memento untuk menyimpan dan mengembalikan keadaannya. `History` mengelola memento untuk
+operasi undo dan redo. `MementoPatternDemo` mendemonstrasikan penggunaan Memento Pattern dengan melakukan berbagai
+operasi pada editor teks dan mengelola keadaannya menggunakan history.
