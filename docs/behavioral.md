@@ -574,3 +574,121 @@ ke semua pengguna lain dalam ruang obrolan. `RegularUser`, `PremiumUser`, dan `A
 `receive` untuk mengirim dan menerima pesan. `PremiumUser` dan `AdminUser` memiliki metode tambahan untuk mengirim pesan
 prioritas dan pesan sistem. Pendekatan ini memisahkan logika komunikasi dari pengguna individu dan memusatkannya dalam
 mediator.
+
+---
+
+## **Visitor Pattern**
+
+Visitor Pattern adalah pola desain yang memungkinkan penambahkan operasi ke objek tanpa mengubah struktur objek
+tersebut. Pola ini berguna untuk memisahkan algoritma dari struktur objek yang dioperasikan.
+
+```mermaid
+classDiagram
+    class Visitor {
+        <<interface>>
+        +visitElementA(in a : ConcreteElementA)
+        +visitElementB(in b : ConcreteElementB)
+    }
+
+    class ConcreteVisitor {
+        +visitElementA(in a : ConcreteElementA)
+        +visitElementB(in b : ConcreteElementB)
+    }
+
+    class Element {
+        <<interface>>
+        +accept(in v : Visitor)
+    }
+
+    class ConcreteElementA {
+        +accept(in v : Visitor)
+    }
+
+    class ConcreteElementB {
+        +accept(in v : Visitor)
+    }
+
+    class Client
+
+		direction RL
+    Client --> Element
+    Visitor <|-- ConcreteVisitor
+    Element <|-- ConcreteElementA
+    Element <|-- ConcreteElementB
+    Element --> Visitor : accept
+    Visitor <.. Client
+```
+
+### **Struktur Kelas Visitor Pattern**
+
+Dalam implementasi ini, Visitor Pattern digunakan untuk menghitung area, menghitung perimeter, dan mengekspor bentuk ke
+XML. `Visitor` adalah antarmuka untuk pengunjung, `AreaCalculator`, `PerimeterCalculator`, dan `XMLExportVisitor` adalah
+pengunjung konkret. `Shape` adalah antarmuka untuk bentuk, dan `Circle`, `Rectangle`, serta `Triangle` adalah bentuk
+konkret.
+
+```mermaid
+classDiagram
+direction TB
+    class Visitor {
+        +visit(Circle circle) void
+        +visit(Rectangle rectangle) void
+        +visit(Triangle triangle) void
+        +getResult() String
+    }
+
+    class AreaCalculator {
+        +visit(Circle circle) void
+        +visit(Rectangle rectangle) void
+        +visit(Triangle triangle) void
+        +getResult() String
+    }
+
+    class PerimeterCalculator {
+        +visit(Circle circle) void
+        +visit(Rectangle rectangle) void
+        +visit(Triangle triangle) void
+        +getResult() String
+    }
+
+    class XMLExportVisitor {
+        +visit(Circle circle) void
+        +visit(Rectangle rectangle) void
+        +visit(Triangle triangle) void
+        +getResult() String
+    }
+
+    class Shape {
+        +accept(Visitor visitor) void
+    }
+
+    class Circle {
+        +accept(Visitor visitor) void
+    }
+
+    class Rectangle {
+        +accept(Visitor visitor) void
+    }
+
+    class Triangle {
+        +accept(Visitor visitor) void
+    }
+
+    class Drawing {
+        +add(Shape shape) void
+        +accept(Visitor visitor) void
+    }
+
+    Visitor <|.. AreaCalculator
+    Visitor <|.. PerimeterCalculator
+    Visitor <|.. XMLExportVisitor
+    Shape <|-- Circle
+    Shape <|-- Rectangle
+    Shape <|-- Triangle
+    Drawing --> Shape : contains
+    Shape --> Visitor : accepts
+```
+
+Dalam implementasinya, `Drawing` menyimpan daftar `Shape`, yang bisa berupa `Circle`, `Rectangle`, atau `Triangle`.
+`AreaCalculator`, `PerimeterCalculator`, dan `XMLExportVisitor` mengunjungi setiap bentuk untuk menghitung area,
+menghitung perimeter, dan mengekspor ke XML. Pendekatan ini memungkinkan penambahan operasi baru tanpa mengubah struktur
+kelasnya.
